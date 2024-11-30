@@ -20,6 +20,8 @@ const createTodo = async (props: NewTodo) => {
       priority: props.priority,
       title: props.title,
       userId: userId,
+      createdAt: new Date(),
+      deadlineAt: new Date(),
       description: props.description,
     },
   });
