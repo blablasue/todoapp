@@ -2,19 +2,20 @@
 import { PrismaClient } from "@prisma/client";
 import getUser from "./getUser";
 
-interface NewTodo {
+interface NewTask {
   title: string;
   priority: number;
   description: string;
   isCompleted: boolean;
+  deadlineAt: Date;
 }
 
-const createTodo = async (props: NewTodo) => {
+const createTask = async (props: NewTask) => {
   const db = new PrismaClient();
   const user = await getUser("b2bestwaifu@gmail.com");
   if (!user) return;
   const userId = user.id;
-  const newTodo = await db.todo.create({
+  const newTask = await db.todo.create({
     data: {
       isCompleted: props.isCompleted,
       priority: props.priority,
@@ -25,8 +26,8 @@ const createTodo = async (props: NewTodo) => {
       description: props.description,
     },
   });
-  if (newTodo) return true;
+  if (newTask) return true;
   return false;
 };
 
-export default createTodo;
+export default createTask;
